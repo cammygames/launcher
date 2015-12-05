@@ -41,7 +41,7 @@ public class window extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         modDir = new javax.swing.JTextField();
         installDir = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         changeLog = new javax.swing.JTextArea();
         launchGame = new javax.swing.JButton();
@@ -93,10 +93,10 @@ public class window extends javax.swing.JFrame {
 
         installDir.setEditable(false);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/rpproject/res/darkLogo.png"))); // NOI18N
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/rpproject/res/darkLogo.png"))); // NOI18N
+        logo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                logoMouseClicked(evt);
             }
         });
 
@@ -106,6 +106,11 @@ public class window extends javax.swing.JFrame {
         jScrollPane1.setViewportView(changeLog);
 
         launchGame.setText("Launch Arma 3");
+        launchGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                launchGameMouseClicked(evt);
+            }
+        });
 
         updateCheck.setText("Check For Updates");
 
@@ -136,7 +141,7 @@ public class window extends javax.swing.JFrame {
                         .addComponent(websiteJPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1)
                             .addComponent(launchGame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(updateCheck, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -165,7 +170,7 @@ public class window extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(websiteJPan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,9 +201,9 @@ public class window extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         util.openWebpage("https://forum.rpproject.net/");
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_logoMouseClicked
 
     private void selectedDirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedDirMouseClicked
         JFileChooser chooser = new JFileChooser();
@@ -228,6 +233,19 @@ public class window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selectedModDirMouseClicked
 
+    private void launchGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_launchGameMouseClicked
+        try {
+            if (!installDir.getText().equals("")) {
+                Process process = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();                 
+            } else {
+                util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_launchGameMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -243,10 +261,10 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton launchGame;
+    private javax.swing.JLabel logo;
     private javax.swing.JTextField modDir;
     private javax.swing.JButton selectedDir;
     private javax.swing.JButton selectedModDir;
