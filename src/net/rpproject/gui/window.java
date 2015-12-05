@@ -96,6 +96,11 @@ public class window extends javax.swing.JFrame {
         jScrollPane1.setViewportView(changeLog);
 
         launchGame.setText("Launch Arma 3");
+        launchGame.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                launchGameMouseClicked(evt);
+            }
+        });
 
         updateCheck.setText("Check For Updates");
 
@@ -169,6 +174,16 @@ public class window extends javax.swing.JFrame {
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
         util.openWebpage("https://forum.rpproject.net/");
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void launchGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_launchGameMouseClicked
+        
+        if (!installDir.getText().equals("")) {
+            
+        } else {
+            util.showErrMsg(this, "Please select your arma 3 install directory");
+        }
+        
+    }//GEN-LAST:event_launchGameMouseClicked
 
     /**
      * @param args the command line arguments

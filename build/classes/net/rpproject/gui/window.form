@@ -207,6 +207,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Launch Arma 3"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="launchGameMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="updateCheck">
       <Properties>
