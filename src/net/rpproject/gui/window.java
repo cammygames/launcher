@@ -48,6 +48,7 @@ public class window extends javax.swing.JFrame {
         updateCheck = new javax.swing.JButton();
         downloadMods = new javax.swing.JButton();
         selectedDir = new javax.swing.JButton();
+        selectedModDir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,6 +118,13 @@ public class window extends javax.swing.JFrame {
             }
         });
 
+        selectedModDir.setText("...");
+        selectedModDir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectedModDirMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,7 +151,9 @@ public class window extends javax.swing.JFrame {
                             .addComponent(installDir, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
                             .addComponent(modDir))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(selectedDir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(selectedDir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectedModDir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -170,14 +180,14 @@ public class window extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(selectedDir, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                                .addComponent(installDir)))
+                            .addComponent(selectedDir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                            .addComponent(installDir))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(modDir)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE))))
+                            .addComponent(selectedModDir, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(modDir, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addGap(18, 18, 18)
                 .addComponent(downloadProgress, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -204,6 +214,20 @@ public class window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_selectedDirMouseClicked
 
+    private void selectedModDirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedModDirMouseClicked
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("choosertitle");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            modDir.setText(chooser.getSelectedFile().getAbsolutePath());
+        } else {
+            util.showErrMsg(this, "No Selection");
+        }
+    }//GEN-LAST:event_selectedModDirMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -225,6 +249,7 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JButton launchGame;
     private javax.swing.JTextField modDir;
     private javax.swing.JButton selectedDir;
+    private javax.swing.JButton selectedModDir;
     private javax.swing.JButton updateCheck;
     private javax.swing.JPanel websiteJPan;
     // End of variables declaration//GEN-END:variables

@@ -49,7 +49,10 @@
                           <Component id="modDir" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="selectedDir" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="selectedDir" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="selectedModDir" min="-2" pref="40" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -82,16 +85,15 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="selectedDir" pref="47" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel3" pref="47" max="32767" attributes="0"/>
-                              <Component id="installDir" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="selectedDir" max="32767" attributes="0"/>
+                          <Component id="jLabel3" pref="47" max="32767" attributes="0"/>
+                          <Component id="installDir" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="modDir" max="32767" attributes="0"/>
-                          <Component id="jLabel2" pref="47" max="32767" attributes="0"/>
+                          <Component id="selectedModDir" min="-2" pref="47" max="-2" attributes="0"/>
+                          <Component id="jLabel2" max="32767" attributes="0"/>
+                          <Component id="modDir" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -235,6 +237,14 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="selectedDirMouseClicked"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="selectedModDir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="..."/>
+      </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="selectedModDirMouseClicked"/>
       </Events>
     </Component>
   </SubComponents>
