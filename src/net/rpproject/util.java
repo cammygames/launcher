@@ -6,6 +6,8 @@
 package net.rpproject;
 
 import java.awt.Desktop;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -52,7 +54,7 @@ public class util {
     * @throws NoSuchAlgorithmException
     *             should never happen
     */
-   private static String calcSHA1(File file) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+   public static String calcSHA1(File file) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
        
        MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
        try (InputStream input = new FileInputStream(file)) {
@@ -67,5 +69,28 @@ public class util {
 
            return new HexBinaryAdapter().marshal(sha1.digest());
        }
+   }
+   
+   /*
+   * This will take the filesize of the downloading file the file name then workout how much of it has downloaded of the file.
+   */
+   public static class progressUpdater implements ActionListener {
+       
+        private static double filesize;
+        private static String filename;
+        
+        public static void setFileName(String name) {
+            filename = name;
+        }
+        
+        public static void setFileSize(double size) {
+            filesize = size;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
+       
    }
 }
