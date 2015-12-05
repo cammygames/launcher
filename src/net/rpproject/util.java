@@ -30,4 +30,7 @@ public class util {
         JOptionPane.showMessageDialog(frame, msg);
     }
     
+    public static void getModhash() {
+        
+    }
 }
