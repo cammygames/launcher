@@ -8,7 +8,11 @@ package net.rpproject.gui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import net.rpproject.download;
 import net.rpproject.util;
 
 /**
@@ -115,6 +119,11 @@ public class window extends javax.swing.JFrame {
         updateCheck.setText("Check For Updates");
 
         downloadMods.setText("Download Mods");
+        downloadMods.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                downloadModsMouseClicked(evt);
+            }
+        });
 
         selectedDir.setText("...");
         selectedDir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -247,13 +256,18 @@ public class window extends javax.swing.JFrame {
 
     }//GEN-LAST:event_launchGameMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-
+    private void downloadModsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downloadModsMouseClicked
+        try {
+            download.downloadFile("http://rpproject.net/mod.json");
+        } catch (IOException ex) {
+            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_downloadModsMouseClicked
+    
+    public static String getModText() {
+        return modDir.getText();
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea changeLog;
     private javax.swing.JButton downloadMods;
@@ -266,7 +280,7 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton launchGame;
     private javax.swing.JLabel logo;
-    private javax.swing.JTextField modDir;
+    private static javax.swing.JTextField modDir;
     private javax.swing.JButton selectedDir;
     private javax.swing.JButton selectedModDir;
     private javax.swing.JButton updateCheck;
