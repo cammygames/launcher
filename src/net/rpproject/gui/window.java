@@ -236,7 +236,8 @@ public class window extends javax.swing.JFrame {
     private void launchGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_launchGameMouseClicked
         try {
             if (!installDir.getText().equals("")) {
-                Process process = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();                 
+                Process arma3 = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();
+                Process batteleye = new ProcessBuilder(installDir.getText() + "\\arma3battleye.exe").start();                 
             } else {
                 util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
             }
