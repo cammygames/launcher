@@ -15,6 +15,9 @@ import java.security.MessageDigest;
 import java.io.FileInputStream;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -33,11 +36,7 @@ public class util {
     public static void showErrMsg(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg);
     }
-    
-    public static void getModhash() {
         
-    }
-    
     /**
     * Read the file and calculate the SHA-1 checksum
     * 
@@ -53,9 +52,8 @@ public class util {
     * @throws NoSuchAlgorithmException
     *             should never happen
     */
-   private static String calcSHA1(File file) throws FileNotFoundException,
-           IOException, NoSuchAlgorithmException {
-
+   private static String calcSHA1(File file) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+       
        MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
        try (InputStream input = new FileInputStream(file)) {
 
