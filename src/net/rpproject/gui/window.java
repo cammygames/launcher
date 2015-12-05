@@ -5,6 +5,10 @@
  */
 package net.rpproject.gui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+import javax.swing.JFileChooser;
 import net.rpproject.util;
 
 /**
@@ -43,6 +47,7 @@ public class window extends javax.swing.JFrame {
         launchGame = new javax.swing.JButton();
         updateCheck = new javax.swing.JButton();
         downloadMods = new javax.swing.JButton();
+        selectedDir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,11 +75,11 @@ public class window extends javax.swing.JFrame {
         websiteJPan.setLayout(websiteJPanLayout);
         websiteJPanLayout.setHorizontalGroup(
             websiteJPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1030, Short.MAX_VALUE)
         );
         websiteJPanLayout.setVerticalGroup(
             websiteJPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -82,6 +87,10 @@ public class window extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("Arma 3 Install Directory");
+
+        modDir.setEditable(false);
+
+        installDir.setEditable(false);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/rpproject/res/darkLogo.png"))); // NOI18N
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,15 +105,17 @@ public class window extends javax.swing.JFrame {
         jScrollPane1.setViewportView(changeLog);
 
         launchGame.setText("Launch Arma 3");
-        launchGame.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                launchGameMouseClicked(evt);
-            }
-        });
 
         updateCheck.setText("Check For Updates");
 
         downloadMods.setText("Download Mods");
+
+        selectedDir.setText("...");
+        selectedDir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                selectedDirMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,10 +139,12 @@ public class window extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(modDir, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE)
-                            .addComponent(installDir))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(installDir, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                            .addComponent(modDir))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(selectedDir, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -157,8 +170,10 @@ public class window extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                            .addComponent(installDir))
+                            .addComponent(selectedDir, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
+                                .addComponent(installDir)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(modDir)
@@ -175,15 +190,19 @@ public class window extends javax.swing.JFrame {
         util.openWebpage("https://forum.rpproject.net/");
     }//GEN-LAST:event_jLabel4MouseClicked
 
-    private void launchGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_launchGameMouseClicked
-        
-        if (!installDir.getText().equals("")) {
-            
+    private void selectedDirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedDirMouseClicked
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("choosertitle");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            installDir.setText(chooser.getSelectedFile().getAbsolutePath());
         } else {
-            util.showErrMsg(this, "Please select your arma 3 install directory");
+            util.showErrMsg(this, "No Selection");
         }
-        
-    }//GEN-LAST:event_launchGameMouseClicked
+    }//GEN-LAST:event_selectedDirMouseClicked
 
     /**
      * @param args the command line arguments
@@ -205,6 +224,7 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton launchGame;
     private javax.swing.JTextField modDir;
+    private javax.swing.JButton selectedDir;
     private javax.swing.JButton updateCheck;
     private javax.swing.JPanel websiteJPan;
     // End of variables declaration//GEN-END:variables
