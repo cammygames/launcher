@@ -80,8 +80,9 @@ public class util {
     * @parma JSONObject
     * @parma path
     * @parma filename
+    * @throws IOException
     */
-    public static void writeJson(JSONObject obj, String path, String fileName)throws IOException {
+    public static void writeJson(JSONObject obj, String path, String fileName) throws IOException {
         try (FileWriter file = new FileWriter(path + fileName + ".json");){    
             file.write(obj.toJSONString());
         }
