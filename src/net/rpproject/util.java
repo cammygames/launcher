@@ -16,12 +16,10 @@ import java.io.FileInputStream;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -72,20 +70,5 @@ public class util {
 
            return new HexBinaryAdapter().marshal(sha1.digest());
        }
-    }
-
-    
-    /**
-    * Writes a JSON object to a .json file
-    * .json file extension is not to be passed
-    * @parma JSONObject
-    * @parma path
-    * @parma filename
-    * @throws IOException
-    */
-    public static void writeJson(JSONObject obj, String path, String fileName) throws IOException {
-        try (FileWriter file = new FileWriter(path + fileName + ".json");){    
-            file.write(obj.toJSONString());
-        }
     }
 }

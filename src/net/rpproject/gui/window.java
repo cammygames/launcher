@@ -244,7 +244,7 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_logoMouseClicked
 
     private void updateCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCheckActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_updateCheckActionPerformed
 
     private void launchGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchGameActionPerformed

@@ -18,9 +18,15 @@ import java.util.Date;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 import net.rpproject.gui.window;
+import net.rpproject.launcher;
+import static net.rpproject.launcher.dataFolder;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
@@ -32,7 +38,11 @@ public class download {
   
     public static double filesize;
     public static String filename;
-    private static boolean unzip = false;
+    private static boolean fileDone = false;
+  
+    public static void downloadPack() {
+        
+    }
     
     private static class ProgressMonitor implements ActionListener {
         @Override
@@ -45,7 +55,7 @@ public class download {
             if(percent == 100) {
                 window.setProgressText("Download Complete");
                 window.setProgress(0);
-                unzip = true;
+                fileDone = true;
             }
         }
     }    
@@ -63,21 +73,12 @@ public class download {
         t.start();        
     }
     
-    public static void unzipFile(final String source, final String destination) {
-        Runnable runner = () -> {
-            unzip(source, destination);
-        };
-        Thread t = new Thread(runner, "RRP Unzipper");
-        t.start();
-    }    
-    
     /**
     * This method is for downloading a file from a URL. 
     * @param fileurl The URL that the download needs to occur
     * @throws IOException 
     */
     private static void fileDownloader(String fileurl) throws IOException {
-
         URL url = null;
         OutputStream fos = null;
         InputStream fis = null;
@@ -91,15 +92,15 @@ public class download {
                 String fileName = FilenameUtils.getBaseName(fileurl);
                 fileName = java.net.URLDecoder.decode(fileName, "UTF-8");
                 String extension = FilenameUtils.getExtension(fileurl);
+                String check = fileName + "." + extension;
                 
-                file = new File(window.getModText());
-   
-                File folder = new File(file + "\\downloading");
-                if (!folder.exists()) {
-                   folder.mkdir();
+                if (!check.equals("mods.xml")) {                          
+                    file = new File(window.getModText());
+                    fos = new FileOutputStream(file + "\\" + fileName + "." + extension);     
+                } else {       
+                    file = new File(launcher.dataFolder + "\\RPP\\");
+                    fos = new FileOutputStream(file + fileName + "." + extension);                
                 }
-
-                fos = new FileOutputStream(file + "\\downloading\\" + fileName + "." + extension);
                 fis = url.openStream();
         
                 DownloadWatcher watcher = new DownloadWatcher(fos);
@@ -109,10 +110,6 @@ public class download {
                 filename = fileName;  
                 
                 IOUtils.copy(fis,watcher); 
-                
-                if (extension.toLowerCase().equals("zip") && unzip) {
-                    unzipFile(file + "\\downloading\\" + fileName + "." + extension, file + "\\" + fileName);
-                }
             }
         } catch (IOException | NumberFormatException e) {
             String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
@@ -127,24 +124,4 @@ public class download {
             }
         }
     }
-    
-    private static void unzip(String source, String destination){
-        try {
-            ZipFile zipFile = new ZipFile(source);
-            zipFile.setRunInThread(true);
-
-            zipFile.extractAll(destination);
-            net.lingala.zip4j.progress.ProgressMonitor progressMonitor = zipFile.getProgressMonitor();
-            while(progressMonitor.getState() == net.lingala.zip4j.progress.ProgressMonitor.STATE_BUSY){
-                int percent = progressMonitor.getPercentDone();
-                String filename = progressMonitor.getFileName();
-                window.setProgressText("Unziping " + filename + " : " + percent + "%");
-                window.setProgress(percent);
-            }
-            if(progressMonitor.getState() == net.lingala.zip4j.progress.ProgressMonitor.RESULT_SUCCESS) {
-                    window.setProgressText("Unzip Complete");
-                    window.setProgress(0);
-                }
-        } catch (ZipException e) {}
-    }     
 }
