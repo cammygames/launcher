@@ -269,7 +269,7 @@ public class window extends javax.swing.JFrame {
 
     private void downloadModsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadModsActionPerformed
         if (!window.getModText().equals("")) {
-            download.downloadFile("https://dl.dropboxusercontent.com/u/58652722/Altis_Life.Altis.pbo");            
+            download.downloadFile("https://dl.dropboxusercontent.com/u/58652722/%40task_force_radio.zip");            
         } else {
             util.showErrMsg(this, "Please select a mod installation directory");
         }
