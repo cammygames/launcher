@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import net.rpproject.dl.download;
 import net.rpproject.util;
+import java.io.File;
 
 /**
  *
@@ -54,6 +55,7 @@ public class window extends javax.swing.JFrame {
         selectedModDir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("RPProject");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sponsored By", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -87,7 +89,7 @@ public class window extends javax.swing.JFrame {
 
         websitePane.setEditable(false);
         try {
-            websitePane.setPage("http://tg620.co.uk");
+            websitePane.setPage("https://cyberworks.org.uk/");
         } catch (Exception ex) {
             Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -237,7 +239,7 @@ public class window extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         util.openWebpage("https://forum.rpproject.net/");
     }//GEN-LAST:event_logoMouseClicked
@@ -255,7 +257,7 @@ public class window extends javax.swing.JFrame {
                 util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
             }
         } catch (Exception ex) {
-            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger("org.netbeans.modules.foo").log(Level.SEVERE, "Error launching Arma 3", ex);
         }
     }//GEN-LAST:event_launchGameActionPerformed
 
@@ -270,14 +272,25 @@ public class window extends javax.swing.JFrame {
     private void selectedDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedDirActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
-        chooser.setDialogTitle("choosertitle");
+        chooser.setDialogTitle("Select Arma 3 Directory");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
 
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-            installDir.setText(chooser.getSelectedFile().getAbsolutePath());
+            File arma3 = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3.exe");
+            if (arma3.exists()) {
+                Logger.getLogger("org.netbeans.modules.foo").log(Level.INFO, "Arma 3 found");
+                File battleEye = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3battleye.exe");
+                if (battleEye.exists()) {
+                    installDir.setText(chooser.getSelectedFile().getAbsolutePath());
+                } else {
+                    util.showErrMsg(this, "Battle Eye not found");
+                }
+            } else {
+                util.showErrMsg(this, "Arma 3 not found");
+            }
         } else {
-            util.showErrMsg(this, "No Selection");
+            util.showErrMsg(this, "Please select your Arma 3 Directory");
         }
     }//GEN-LAST:event_selectedDirActionPerformed
 
