@@ -261,10 +261,10 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_launchGameMouseClicked
 
     private void downloadModsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downloadModsMouseClicked
-        try {
-            download.downloadFile("http://rpproject.net/mod.json");
-        } catch (IOException ex) {
-            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+        if (!window.getModText().equals("")) {
+            download.downloadFile("http://i.imgur.com/XkLMyPI.png");            
+        } else {
+            util.showErrMsg(this, "Please select a mod installation directory");
         }
     }//GEN-LAST:event_downloadModsMouseClicked
     
