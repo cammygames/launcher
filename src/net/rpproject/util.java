@@ -44,6 +44,8 @@ public class util {
     
     public static void showErrMsg(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg);
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        Logger.getLogger("RPP").log(Level.INFO, timeStamp + " " + msg);            
     }
 
     /**

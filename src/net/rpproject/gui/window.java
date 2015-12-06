@@ -258,8 +258,8 @@ public class window extends javax.swing.JFrame {
                 util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
             }
         } catch (Exception ex) {
-                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-                Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Error Launching Arma 3");           
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+            Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Error Launching Arma 3");           
         }
     }//GEN-LAST:event_launchGameActionPerformed
 
@@ -279,18 +279,18 @@ public class window extends javax.swing.JFrame {
         chooser.setAcceptAllFileFilterUsed(false);
 
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
             File arma3 = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3.exe");
-            if (arma3.exists()) {
-                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+            if (arma3.exists()) {    
                 Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Arma 3 found");
                 File battleEye = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3battleye.exe");
                 if (battleEye.exists()) {
                     installDir.setText(chooser.getSelectedFile().getAbsolutePath());
                 } else {
-                    util.showErrMsg(this, "Battle Eye not found");
+                    util.showErrMsg(this, "Battle Eye not found");                
                 }
             } else {
-                util.showErrMsg(this, "Arma 3 not found");
+                util.showErrMsg(this, "Arma 3 not found");                   
             }
         } else {
             util.showErrMsg(this, "Please select your Arma 3 Directory");
