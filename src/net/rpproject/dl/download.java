@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package net.rpproject;
+package net.rpproject.dl;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,7 +20,7 @@ import org.apache.commons.io.IOUtils;
  * @author Michael Rosen
  */
 public class download {
-    
+  
     /**
     * This method is for downloading a file from a URL. 
     * @param fileurl The URL that the download needs to occur

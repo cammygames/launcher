@@ -18,8 +18,10 @@ import java.io.FileInputStream;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -34,11 +36,11 @@ public class util {
             e.printStackTrace();
         }
     }
-    
+
     public static void showErrMsg(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg);
     }
-        
+
     /**
     * Read the file and calculate the SHA-1 checksum
     * 
@@ -54,8 +56,8 @@ public class util {
     * @throws NoSuchAlgorithmException
     *             should never happen
     */
-   public static String calcSHA1(File file) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
-       
+    public static String calcSHA1(File file) throws FileNotFoundException, IOException, NoSuchAlgorithmException {
+
        MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
        try (InputStream input = new FileInputStream(file)) {
 
@@ -69,28 +71,45 @@ public class util {
 
            return new HexBinaryAdapter().marshal(sha1.digest());
        }
-   }
-   
-   /*
-   * This will take the filesize of the downloading file the file name then workout how much of it has downloaded of the file.
-   */
-   public static class progressUpdater implements ActionListener {
-       
+    }
+
+    
+    /*
+    * Writes a JSON object to a .json file
+    * .json file extension is not to be passed
+    * @parma JSONObject
+    * @parma path
+    * @parma filename
+    */
+    public static void writeJson(JSONObject obj, String path, String fileName) {
+        try {
+            FileWriter file = new FileWriter(path + fileName + ".json");
+            file.write(obj.toJSONString());
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    /*
+    * This will take the filesize of the downloading file the file name then workout how much of it has downloaded of the file.
+    */
+    public static class progressUpdater implements ActionListener {
+
         private static double filesize;
         private static String filename;
-        
+
         public static void setFileName(String name) {
             filename = name;
         }
-        
+
         public static void setFileSize(double size) {
             filesize = size;
         }
-        
+
         @Override
         public void actionPerformed(ActionEvent e) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
-       
-   }
+
+    }
 }

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import net.rpproject.download;
+import net.rpproject.dl.download;
 import net.rpproject.util;
 
 /**
@@ -254,7 +254,6 @@ public class window extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }//GEN-LAST:event_launchGameMouseClicked
 
     private void downloadModsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downloadModsMouseClicked
