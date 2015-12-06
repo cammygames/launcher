@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import net.rpproject.gui.window;
@@ -34,7 +37,7 @@ public class download {
             double d  = ((DownloadWatcher) e.getSource()).getByteCount();
             double dpercent = (d / filesize) * 100;
             int percent = (int) dpercent;
-            window.setProgressText("Downloading " + filename);
+            window.setProgressText("Downloading " + filename + " : " + percent + "%");
             window.setProgress(percent);
             if(percent == 100) {
                 window.setProgressText("Download Complete");
@@ -89,7 +92,9 @@ public class download {
                 IOUtils.copy(fis,watcher);            
             }
         } catch (IOException | NumberFormatException e) {
-            e.printStackTrace();
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+            Logger.getLogger("RPP").log(Level.INFO, "{0} Error Downloading file: {1}", new Object[]{timeStamp, fileurl});
+            Logger.getLogger("RPP").log(Level.INFO, (Supplier<String>) e);             
         } finally {
             if (fos != null) { 
                 fos.close(); 

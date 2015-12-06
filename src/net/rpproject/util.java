@@ -21,6 +21,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.simple.JSONObject;
 
 /**
@@ -33,10 +37,11 @@ public class util {
         try {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
         } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
+            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+            Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Error loading webpage"); 
         }
     }
-
+    
     public static void showErrMsg(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg);
     }
@@ -74,7 +79,7 @@ public class util {
     }
 
     
-    /*
+    /**
     * Writes a JSON object to a .json file
     * .json file extension is not to be passed
     * @parma JSONObject

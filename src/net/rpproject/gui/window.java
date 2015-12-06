@@ -5,13 +5,14 @@
  */
 package net.rpproject.gui;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import net.rpproject.dl.download;
 import net.rpproject.util;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -257,7 +258,8 @@ public class window extends javax.swing.JFrame {
                 util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
             }
         } catch (Exception ex) {
-            Logger.getLogger("org.netbeans.modules.foo").log(Level.SEVERE, "Error launching Arma 3", ex);
+                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+                Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Error Launching Arma 3");           
         }
     }//GEN-LAST:event_launchGameActionPerformed
 
@@ -279,7 +281,8 @@ public class window extends javax.swing.JFrame {
         if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             File arma3 = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3.exe");
             if (arma3.exists()) {
-                Logger.getLogger("org.netbeans.modules.foo").log(Level.INFO, "Arma 3 found");
+                String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+                Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Arma 3 found");
                 File battleEye = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3battleye.exe");
                 if (battleEye.exists()) {
                     installDir.setText(chooser.getSelectedFile().getAbsolutePath());
