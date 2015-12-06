@@ -142,6 +142,10 @@
       </SubComponents>
     </Container>
     <Component class="javax.swing.JProgressBar" name="downloadProgress">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="downloadProgress.setMinimum(0);&#xa;downloadProgress.setMaximum(100);&#xa;downloadProgress.setStringPainted(true);"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="10"/>
+      </AuxValues>
     </Component>
     <Container class="javax.swing.JPanel" name="websiteJPan">
       <Properties>

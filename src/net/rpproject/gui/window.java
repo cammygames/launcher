@@ -75,6 +75,10 @@ public class window extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
+        downloadProgress.setMinimum(0);
+        downloadProgress.setMaximum(100);
+        downloadProgress.setStringPainted(true);
+
         websiteJPan.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout websiteJPanLayout = new javax.swing.GroupLayout(websiteJPan);
@@ -251,8 +255,8 @@ public class window extends javax.swing.JFrame {
             } else {
                 util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_launchGameMouseClicked
 
@@ -268,10 +272,18 @@ public class window extends javax.swing.JFrame {
         return modDir.getText();
     }
     
+    public static void setProgress(final int value) {
+        downloadProgress.setValue(value);
+    }
+    
+    public static void setProgressText(String msg) {
+        downloadProgress.setString(msg);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea changeLog;
     private javax.swing.JButton downloadMods;
-    private javax.swing.JProgressBar downloadProgress;
+    private static javax.swing.JProgressBar downloadProgress;
     private javax.swing.JTextField installDir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

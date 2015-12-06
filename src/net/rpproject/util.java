@@ -87,27 +87,4 @@ public class util {
             file.write(obj.toJSONString());
         }
     }
-    
-    /*
-    * This will take the filesize of the downloading file the file name then workout how much of it has downloaded of the file.
-    */
-    public static class progressUpdater implements ActionListener {
-
-        private static double filesize;
-        private static String filename;
-
-        public static void setFileName(String name) {
-            filename = name;
-        }
-
-        public static void setFileSize(double size) {
-            filesize = size;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            throw new UnsupportedOperationException("Not supported yet.");
-        }
-
-    }
 }
