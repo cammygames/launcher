@@ -11,8 +11,6 @@ import javax.swing.JFileChooser;
 import net.rpproject.dl.download;
 import net.rpproject.util;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
  *
@@ -251,9 +249,16 @@ public class window extends javax.swing.JFrame {
 
     private void launchGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchGameActionPerformed
         try {
+            File arma3exe = new File(installDir.getText() + "\\arma3.exe");
+            File battleyeexe = new File(installDir.getText() + "\\arma3battleye.exe");
+            
             if (!installDir.getText().equals("")) {
-                Process arma3 = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();
-                Process batteleye = new ProcessBuilder(installDir.getText() + "\\arma3battleye.exe").start();                 
+                if (arma3exe.exists() && battleyeexe.exists()) {
+                    Process arma3 = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();
+                    Process batteleye = new ProcessBuilder(installDir.getText() + "\\arma3battleye.exe").start();
+                } else {
+                    util.showErrMsg(this, "Could not find Arma 3 or Battleye");
+                }
             } else {
                 util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
             }
@@ -272,7 +277,14 @@ public class window extends javax.swing.JFrame {
 
     private void selectedDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedDirActionPerformed
         JFileChooser chooser = new JFileChooser();
-        chooser.setCurrentDirectory(new java.io.File("."));
+        
+        File defaultArma3 = new File("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Arma 3\\arma3.exe");
+        if (defaultArma3.exists()) {
+            chooser.setCurrentDirectory(defaultArma3);
+        } else {
+            Logger.getLogger("RPP").log(Level.INFO, "Arma 3 not in default path");
+            chooser.setCurrentDirectory(new File(System.getProperty("user.home") + "\\Documents"));
+        }
         chooser.setDialogTitle("Select Arma 3 Directory");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
@@ -284,6 +296,9 @@ public class window extends javax.swing.JFrame {
                 File battleEye = new File(chooser.getSelectedFile().getAbsolutePath() + "\\arma3battleye.exe");
                 if (battleEye.exists()) {
                     installDir.setText(chooser.getSelectedFile().getAbsolutePath());
+                    if (window.getModText().equals("")) {
+                        modDir.setText(chooser.getSelectedFile().getAbsolutePath());
+                    }
                 } else {
                     util.showErrMsg(this, "Battle Eye not found");                
                 }
@@ -298,7 +313,7 @@ public class window extends javax.swing.JFrame {
     private void selectedModDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedModDirActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
-        chooser.setDialogTitle("choosertitle");
+        chooser.setDialogTitle("Select Arma 3 Mod Install Directory");
         chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         chooser.setAcceptAllFileFilterUsed(false);
 
