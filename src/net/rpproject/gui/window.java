@@ -5,10 +5,6 @@
  */
 package net.rpproject.gui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -115,32 +111,37 @@ public class window extends javax.swing.JFrame {
         jScrollPane1.setViewportView(changeLog);
 
         launchGame.setText("Launch Arma 3");
-        launchGame.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                launchGameMouseClicked(evt);
+        launchGame.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                launchGameActionPerformed(evt);
             }
         });
 
         updateCheck.setText("Check For Updates");
+        updateCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCheckActionPerformed(evt);
+            }
+        });
 
         downloadMods.setText("Download Mods");
-        downloadMods.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                downloadModsMouseClicked(evt);
+        downloadMods.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                downloadModsActionPerformed(evt);
             }
         });
 
         selectedDir.setText("...");
-        selectedDir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                selectedDirMouseClicked(evt);
+        selectedDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedDirActionPerformed(evt);
             }
         });
 
         selectedModDir.setText("...");
-        selectedModDir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                selectedModDirMouseClicked(evt);
+        selectedModDir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectedModDirActionPerformed(evt);
             }
         });
 
@@ -219,7 +220,32 @@ public class window extends javax.swing.JFrame {
         util.openWebpage("https://forum.rpproject.net/");
     }//GEN-LAST:event_logoMouseClicked
 
-    private void selectedDirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedDirMouseClicked
+    private void updateCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCheckActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateCheckActionPerformed
+
+    private void launchGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchGameActionPerformed
+        try {
+            if (!installDir.getText().equals("")) {
+                Process arma3 = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();
+                Process batteleye = new ProcessBuilder(installDir.getText() + "\\arma3battleye.exe").start();                 
+            } else {
+                util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_launchGameActionPerformed
+
+    private void downloadModsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadModsActionPerformed
+        if (!window.getModText().equals("")) {
+            download.downloadFile("http://i.imgur.com/XkLMyPI.png");            
+        } else {
+            util.showErrMsg(this, "Please select a mod installation directory");
+        }
+    }//GEN-LAST:event_downloadModsActionPerformed
+
+    private void selectedDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedDirActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setDialogTitle("choosertitle");
@@ -231,9 +257,9 @@ public class window extends javax.swing.JFrame {
         } else {
             util.showErrMsg(this, "No Selection");
         }
-    }//GEN-LAST:event_selectedDirMouseClicked
+    }//GEN-LAST:event_selectedDirActionPerformed
 
-    private void selectedModDirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectedModDirMouseClicked
+    private void selectedModDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectedModDirActionPerformed
         JFileChooser chooser = new JFileChooser();
         chooser.setCurrentDirectory(new java.io.File("."));
         chooser.setDialogTitle("choosertitle");
@@ -245,28 +271,7 @@ public class window extends javax.swing.JFrame {
         } else {
             util.showErrMsg(this, "No Selection");
         }
-    }//GEN-LAST:event_selectedModDirMouseClicked
-
-    private void launchGameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_launchGameMouseClicked
-        try {
-            if (!installDir.getText().equals("")) {
-                Process arma3 = new ProcessBuilder(installDir.getText() + "\\arma3.exe").start();
-                Process batteleye = new ProcessBuilder(installDir.getText() + "\\arma3battleye.exe").start();                 
-            } else {
-                util.showErrMsg(this, "No Installation Directory. Please select your installation directory!");
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_launchGameMouseClicked
-
-    private void downloadModsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_downloadModsMouseClicked
-        if (!window.getModText().equals("")) {
-            download.downloadFile("http://i.imgur.com/XkLMyPI.png");            
-        } else {
-            util.showErrMsg(this, "Please select a mod installation directory");
-        }
-    }//GEN-LAST:event_downloadModsMouseClicked
+    }//GEN-LAST:event_selectedModDirActionPerformed
     
     public static String getModText() {
         return modDir.getText();
