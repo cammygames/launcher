@@ -24,7 +24,7 @@ public class launcher {
     
     public static Logger logger;
     public static FileHandler fileHand;
-    private static String dataFolder;
+    public static String dataFolder;
     private static boolean mkdir;
     
     /**
@@ -47,6 +47,11 @@ public class launcher {
            mkdir = folder.mkdir();
         }
 
+        File logs = new File(dataFolder + "\\RPP\\" + "\\logs\\");
+        if (!logs.exists()) {
+           mkdir = logs.mkdir();
+        }        
+        
         try {      
             setupLogger();
         } catch (IOException ex) {
@@ -58,16 +63,17 @@ public class launcher {
     * Setup a Logger
     * @throws java.io.IOException
     */ 
-    public static void setupLogger() throws IOException {
+    private static void setupLogger() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
-        File logFile = new File(dataFolder + "\\RPP\\" + timeStamp + ".log");
+        File logFile = new File(dataFolder + "\\RPP\\logs\\" + timeStamp + ".log");
         logFile.createNewFile();
         
         logger = Logger.getLogger("RPP");
-        fileHand = new FileHandler(dataFolder + "\\RPP\\" + timeStamp + ".log");
+        fileHand = new FileHandler(dataFolder + "\\RPP\\logs\\" + timeStamp + ".log");
         logger.addHandler(fileHand);
         SimpleFormatter formatter = new SimpleFormatter();  
         fileHand.setFormatter(formatter);
     }
+
 }

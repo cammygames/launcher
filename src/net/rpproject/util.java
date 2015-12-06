@@ -16,12 +16,18 @@ import java.io.FileInputStream;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.simple.JSONObject;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -74,18 +80,34 @@ public class util {
        }
     }
 
+
     
-    /**
-    * Writes a JSON object to a .json file
-    * .json file extension is not to be passed
-    * @parma JSONObject
-    * @parma path
-    * @parma filename
-    * @throws IOException
-    */
-    public static void writeJson(JSONObject obj, String path, String fileName) throws IOException {
-        try (FileWriter file = new FileWriter(path + fileName + ".json");){    
-            file.write(obj.toJSONString());
-        }
+    public static boolean checkHash(String hash, String mod) throws ParserConfigurationException, SAXException, IOException {
+
+        File modFile = new File(launcher.dataFolder + "\\RPP\\mod.xml");
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	Document doc = dBuilder.parse(modFile);
+        doc.getDocumentElement().normalize();
+        
+        NodeList nList = doc.getElementsByTagName("folder");
+        
+        for (int temp = 0; temp < nList.getLength(); temp++) {
+            Node nNode = nList.item(temp);
+
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+
+                    Element eElement = (Element) nNode;
+
+                    System.out.println("Staff id : " + eElement.getAttribute("id"));
+                    System.out.println("First Name : " + eElement.getElementsByTagName("firstname").item(0).getTextContent());
+                    System.out.println("Last Name : " + eElement.getElementsByTagName("lastname").item(0).getTextContent());
+                    System.out.println("Nick Name : " + eElement.getElementsByTagName("nickname").item(0).getTextContent());
+                    System.out.println("Salary : " + eElement.getElementsByTagName("salary").item(0).getTextContent());
+
+            }
+	}
+        
+        return false;
     }
 }

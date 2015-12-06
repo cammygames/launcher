@@ -8,9 +8,9 @@ package net.rpproject.gui;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import net.rpproject.dl.download;
 import net.rpproject.util;
 import java.io.File;
+import net.rpproject.launcher;
 
 /**
  *
@@ -54,7 +54,7 @@ public class window extends javax.swing.JFrame {
         selectedModDir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("RPProject");
+        setTitle("RPProject Launcher V0.0.1");
         setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sponsored By", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
@@ -244,7 +244,16 @@ public class window extends javax.swing.JFrame {
     }//GEN-LAST:event_logoMouseClicked
 
     private void updateCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCheckActionPerformed
-        // TODO add your handling code here:
+        if (!window.getModText().equals("")) {
+            File modJson = new File(launcher.dataFolder + "\\RPP\\mod.xml");
+            File modJsonBack = new File(launcher.dataFolder + "\\RPP\\mod.xml.old");            
+            if (modJson.exists()) {
+                modJson.renameTo(modJsonBack);
+            } 
+       
+        } else {
+            util.showErrMsg(this, "Please select a mod installation directory");
+        }        
     }//GEN-LAST:event_updateCheckActionPerformed
 
     private void launchGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_launchGameActionPerformed
@@ -269,7 +278,7 @@ public class window extends javax.swing.JFrame {
 
     private void downloadModsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadModsActionPerformed
         if (!window.getModText().equals("")) {
-            download.downloadFile("https://dl.dropboxusercontent.com/u/58652722/%40task_force_radio.zip");            
+            
         } else {
             util.showErrMsg(this, "Please select a mod installation directory");
         }
