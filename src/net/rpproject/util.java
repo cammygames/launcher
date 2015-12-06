@@ -81,12 +81,9 @@ public class util {
     * @parma path
     * @parma filename
     */
-    public static void writeJson(JSONObject obj, String path, String fileName) {
-        try {
-            FileWriter file = new FileWriter(path + fileName + ".json");
+    public static void writeJson(JSONObject obj, String path, String fileName)throws IOException {
+        try (FileWriter file = new FileWriter(path + fileName + ".json");){    
             file.write(obj.toJSONString());
-        } catch (IOException e){
-            e.printStackTrace();
         }
     }
     
