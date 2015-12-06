@@ -6,8 +6,6 @@
 package net.rpproject;
 
 import java.awt.Desktop;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -21,8 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONObject;
@@ -37,15 +33,13 @@ public class util {
         try {
             Desktop.getDesktop().browse(new URL(urlString).toURI());
         } catch (URISyntaxException | IOException e) {
-            String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-            Logger.getLogger("RPP").log(Level.INFO, timeStamp + "Error loading webpage"); 
+            Logger.getLogger("RPP").log(Level.INFO, "Error loading webpage", e); 
         }
     }
     
     public static void showErrMsg(JFrame frame, String msg) {
         JOptionPane.showMessageDialog(frame, msg);
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-        Logger.getLogger("RPP").log(Level.INFO, timeStamp + " " + msg);            
+        Logger.getLogger("RPP").log(Level.INFO, msg);
     }
 
     /**

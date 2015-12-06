@@ -8,9 +8,6 @@ package net.rpproject;
 import java.awt.EventQueue;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.security.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.FileHandler;
@@ -62,7 +59,7 @@ public class launcher {
     * @throws java.io.IOException
     */ 
     public static void setupLogger() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd HH.mm.ss").format(new Date());
 
         File logFile = new File(dataFolder + "\\RPP\\" + timeStamp + ".log");
         logFile.createNewFile();
@@ -71,6 +68,6 @@ public class launcher {
         fileHand = new FileHandler(dataFolder + "\\RPP\\" + timeStamp + ".log");
         logger.addHandler(fileHand);
         SimpleFormatter formatter = new SimpleFormatter();  
-        fileHand.setFormatter(formatter);         
+        fileHand.setFormatter(formatter);
     }
 }
