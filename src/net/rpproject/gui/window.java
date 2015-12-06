@@ -5,6 +5,7 @@
  */
 package net.rpproject.gui;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -34,9 +35,11 @@ public class window extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        sponsor1 = new javax.swing.JLabel();
         downloadProgress = new javax.swing.JProgressBar();
         websiteJPan = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        websitePane = new javax.swing.JEditorPane();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         modDir = new javax.swing.JTextField();
@@ -55,7 +58,12 @@ public class window extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Sponsored By", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/rpproject/res/servacityLogo.png"))); // NOI18N
+        sponsor1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/net/rpproject/res/servacityLogo.png"))); // NOI18N
+        sponsor1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sponsor1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -63,12 +71,12 @@ public class window extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(sponsor1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(322, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(sponsor1, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
         downloadProgress.setMinimum(0);
@@ -77,15 +85,29 @@ public class window extends javax.swing.JFrame {
 
         websiteJPan.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        websitePane.setEditable(false);
+        try {
+            websitePane.setPage("http://tg620.co.uk");
+        } catch (Exception ex) {
+            Logger.getLogger(window.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jScrollPane2.setViewportView(websitePane);
+
         javax.swing.GroupLayout websiteJPanLayout = new javax.swing.GroupLayout(websiteJPan);
         websiteJPan.setLayout(websiteJPanLayout);
         websiteJPanLayout.setHorizontalGroup(
             websiteJPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1030, Short.MAX_VALUE)
+            .addGroup(websiteJPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         websiteJPanLayout.setVerticalGroup(
             websiteJPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 530, Short.MAX_VALUE)
+            .addGroup(websiteJPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -239,7 +261,7 @@ public class window extends javax.swing.JFrame {
 
     private void downloadModsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadModsActionPerformed
         if (!window.getModText().equals("")) {
-            download.downloadFile("http://i.imgur.com/XkLMyPI.png");            
+            download.downloadFile("https://dl.dropboxusercontent.com/u/58652722/Altis_Life.Altis.pbo");            
         } else {
             util.showErrMsg(this, "Please select a mod installation directory");
         }
@@ -272,6 +294,10 @@ public class window extends javax.swing.JFrame {
             util.showErrMsg(this, "No Selection");
         }
     }//GEN-LAST:event_selectedModDirActionPerformed
+
+    private void sponsor1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sponsor1MouseClicked
+        util.openWebpage("http://www.servacity.com/");
+    }//GEN-LAST:event_sponsor1MouseClicked
     
     public static String getModText() {
         return modDir.getText();
@@ -290,17 +316,19 @@ public class window extends javax.swing.JFrame {
     private javax.swing.JButton downloadMods;
     private static javax.swing.JProgressBar downloadProgress;
     private javax.swing.JTextField installDir;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton launchGame;
     private javax.swing.JLabel logo;
     private static javax.swing.JTextField modDir;
     private javax.swing.JButton selectedDir;
     private javax.swing.JButton selectedModDir;
+    private javax.swing.JLabel sponsor1;
     private javax.swing.JButton updateCheck;
     private javax.swing.JPanel websiteJPan;
+    private javax.swing.JEditorPane websitePane;
     // End of variables declaration//GEN-END:variables
 }
